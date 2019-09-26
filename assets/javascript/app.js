@@ -22,59 +22,47 @@ var triviaQuestions = [
 
 
 //initial values
-var counter = 30;
-var currentQuestion = 0;
-var correct = 0;
-var incorrect = 0;
+var counter = 130;
+var userAnswer = 0;
+var correctAnswer = 0;
+var score = 0;
+var losses = 0;
 var timer;
 
-//function that goes to the next question
-function nextQuestion () {
-//if the index of the last question is equal to the index of the current question, then we know the questions are over
-    var areQuestionsDone = (triviaQuestions.length-1) === currentQuestion;
-    if (areQuestionsDone) {
-        console.log("game is over");
-    } else {
-    currentQuestion++;
+//start click event, hides the timer after clicking and displays the questions
+$(document).on("click", "#start", function() {
+    startTimer();
+    $("#start").hide();
     displayQuestion();
-    }
-}
-
-//function that stops the timer and goes to the results page
-function timesUp() {
-    clearInterval(timer);
-    losses++;
-    //alert("Time's up! You lost. Next Question.");
-    nextQuestion();
 }
 
 //function that starts the timer
-function countdown() {
+function startTimer() {
+    counter = 100;
+    timer = setInterval(countdown, 1000);
     counter--;
     $("#time").html("Time left: " + counter);
-    $("start").hide();
     if (counter===0) {
         timesUp();
+    $("#time").empty();
     }
 }
-
-
-
-
-//function that displays the question
-function displayQuestion() {
-    counter=5;
-    timer=setInterval(countdown, 1000);
-    
-//accesses the first question from the triviaQuestion array
-    var question = triviaQuestions[currentQuestion].question;
-
-//displays the timer
-    $("#time").html("Time left: " + counter);
-
+//function that stops the timer and goes to the results page
+function timesUp() {
+    clearInterval(timer);
+    resultsPage();
 }
+
+
+
+
+
+
+
+
+
 //function thst displays the question and choices
-function displayChoices() {
+function displayQuestion() {
 
         
 
@@ -95,12 +83,16 @@ function displayChoices() {
     }
 
 
-
+    //clicking on the submit button tallies up your score and takes you to the results page
+    $(document).on("click", "#submit-button" function() {
+        timesUp();
+        resultsPage();
+    });
   
 }
 
-displayQuestion();
-displayChoices();
+
+
 
 //jquery click events
 
