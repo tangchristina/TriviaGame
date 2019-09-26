@@ -100,13 +100,14 @@ function displayQuestion() {
 function checkChoices() {
     var correctChoice;
     var userAnswer;
-    
+    var score = 0;
+    var losses = 0;
 
 //for loop that compares the correct answer of the array with the answer the user picked
-    for (var i=0; i<triviaQuestions.length[i]; i++) {
+    for (var i=0; i<triviaQuestions.length; i++) {
         
-        correctChoice = triviaQuestions[i].correctAnswer
-        userAnswer = $('input[id=radio'+i+']:checked+label').text();
+        correctChoice = triviaQuestions[i].correctAnswer;
+        userAnswer = $('input[id=radio'+i+']:checked + label').text();
 
         if (correctChoice === userAnswer) {
             score++;
@@ -115,17 +116,17 @@ function checkChoices() {
         }
 
 resultsPage(score,losses);
-
+console.log(score);
 }
 
 function resultsPage(score, losses) {
     $("#results-page").show();
     $("#question-box").hide();
     $("#time").hide();
-    $("#correct-answers").text("Correct answers: " + score);
-    $("#incorrect-answers").text("Incorrect answers: " + losses);
+    $("#correct-answers").text("Correct answers: " + parseInt(score));
+    $("#incorrect-answers").text("Incorrect answers: " + parseInt(losses));
 
-    console.log(score);
+    
 
 }
 
