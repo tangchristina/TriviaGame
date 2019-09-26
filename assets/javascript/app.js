@@ -24,8 +24,8 @@ var triviaQuestions = [
 //initial values
 var counter = 30;
 var currentQuestion = 0;
-var score = 0;
-var losses = 0;
+var correct = 0;
+var incorrect = 0;
 var timer;
 
 //function that goes to the next question
@@ -40,7 +40,7 @@ function nextQuestion () {
     }
 }
 
-//function that stops the timer and goes to the next question
+//function that stops the timer and goes to the results page
 function timesUp() {
     clearInterval(timer);
     losses++;
@@ -71,27 +71,29 @@ function displayQuestion() {
 
 //displays the timer
     $("#time").html("Time left: " + counter);
-//displays the question
-    $("#game").html("<h4>" + question + "</h4>");
 
 }
-//access the possible choices from the trivia questions array
+//function thst displays the question and choices
 function displayChoices() {
 
-
+        
 
     for (let i = 0; i < triviaQuestions.length; i++) {
         var choiceOne = triviaQuestions[i].choices[0];
         var choiceTwo = triviaQuestions[i].choices[1];
         var choiceThree = triviaQuestions[i].choices[2];
         var choiceFour = triviaQuestions[i].choices[3];
+        
+        var questionBox = $("#question-box");
+     
+        questionBox.append("<h4>" + triviaQuestions[i].question + "</h4> <br>");
 
-        $("game").html("<h4>" + choiceOne + "</h4>");
-        $("game").html("<h4>" + choiceTwo + "</h4>");
-        $("game").html("<h4>" + choiceThree + "</h4>");
-        $("game").html("<h4>" + choiceFour + "</h4>");
-        console.log(choiceOne);
+        $("#question-box").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group'+i+'" id="radio'+i+'"><label class="form-check-label" id="radio'+i+'label" for="radio'+i+'">' + choiceOne + '</label></div> <br>');
+        $("#question-box").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group'+i+'" id="radio'+i+'"><label class="form-check-label" id="radio'+i+'label" for="radio'+i+'">' + choiceTwo + '</label></div> <br>');
+        $("#question-box").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group'+i+'" id="radio'+i+'"><label class="form-check-label" id="radio'+i+'label" for="radio'+i+'">' + choiceThree + '</label></div> <br>');
+        $("#question-box").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group'+i+'" id="radio'+i+'"><label class="form-check-label" id="radio'+i+'label" for="radio'+i+'">' + choiceFour + '</label></div> <br>');
     }
+
 
 
   
@@ -102,6 +104,7 @@ displayChoices();
 
 //jquery click events
 
-$(document).on("click", ".choice", function() {
-console.log("yeeee");
-});
+function checkChoices() {
+    var correctAnswer;
+    var userChoice;
+}
