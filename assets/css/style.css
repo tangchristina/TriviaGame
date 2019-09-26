@@ -2,3 +2,8 @@
     position:fixed;
     left: 900px;
 }
+
+.hidden>div {
+    display:none;
+}
+

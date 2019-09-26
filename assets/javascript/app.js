@@ -22,51 +22,52 @@ var triviaQuestions = [
 
 
 //initial values
-var counter = 130;
+var counter = 100;
 var userAnswer = 0;
-var correctAnswer = 0;
+var correctChoice = 0;
 var score = 0;
 var losses = 0;
 var timer;
 
-//start click event, hides the timer after clicking and displays the questions
+//start click event, hides the start button after clicking and displays the questions
 $(document).on("click", "#start", function() {
     startTimer();
     $("#start").hide();
     displayQuestion();
-}
+});
 
-//function that starts the timer
+//function that displays and starts the timer
 function startTimer() {
     counter = 100;
-    timer = setInterval(countdown, 1000);
+    $("#time").html("Time left: " + counter);
+    setInterval(countdown, 1000);
+    countdown();
+}
+
+//function that counts down the timer
+function countdown() {
     counter--;
     $("#time").html("Time left: " + counter);
-    if (counter===0) {
+
+    if (counter === 0) {
         timesUp();
-    $("#time").empty();
     }
+
 }
+
 //function that stops the timer and goes to the results page
 function timesUp() {
-    clearInterval(timer);
-    resultsPage();
+    clearInterval();
+    checkChoices();
 }
 
 
-
-
-
-
-
-
-
-//function thst displays the question and choices
+//function that displays the question and choices, starts the game
 function displayQuestion() {
 
         
 
-    for (let i = 0; i < triviaQuestions.length; i++) {
+    for (var i = 0; i < triviaQuestions.length; i++) {
         var choiceOne = triviaQuestions[i].choices[0];
         var choiceTwo = triviaQuestions[i].choices[1];
         var choiceThree = triviaQuestions[i].choices[2];
@@ -82,21 +83,50 @@ function displayQuestion() {
         $("#question-box").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group'+i+'" id="radio'+i+'"><label class="form-check-label" id="radio'+i+'label" for="radio'+i+'">' + choiceFour + '</label></div> <br>');
     }
 
-
-    //clicking on the submit button tallies up your score and takes you to the results page
-    $(document).on("click", "#submit-button" function() {
+}
+    //clicking on the submit button page
+    $(document).on("click", "#submit-button", function() {
         timesUp();
-        resultsPage();
+        checkChoices();
     });
   
-}
 
 
 
 
-//jquery click events
+
+//function that tallies up your score and takes you to the results page
 
 function checkChoices() {
-    var correctAnswer;
-    var userChoice;
+    var correctChoice;
+    var userAnswer;
+    
+
+//for loop that compares the correct answer of the array with the answer the user picked
+    for (var i=0; i<triviaQuestions.length[i]; i++) {
+        
+        correctChoice = triviaQuestions[i].correctAnswer
+        userAnswer = $('input[id=radio'+i+']:checked+label').text();
+
+        if (correctChoice === userAnswer) {
+            score++;
+        } else if (correctChoice !== userAnswer)
+            losses++;
+        }
+
+resultsPage(score,losses);
+
 }
+
+function resultsPage(score, losses) {
+    $("#results-page").show();
+    $("#question-box").hide();
+    $("#time").hide();
+    $("#correct-answers").text("Correct answers: " + score);
+    $("#incorrect-answers").text("Incorrect answers: " + losses);
+
+    console.log(score);
+
+}
+
+
