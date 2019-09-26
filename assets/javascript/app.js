@@ -123,8 +123,8 @@ function resultsPage(score, losses) {
     $("#results-page").show();
     $("#question-box").hide();
     $("#time").hide();
-    $("#correct-answers").text("Correct answers: " + parseInt(score));
-    $("#incorrect-answers").text("Incorrect answers: " + parseInt(losses));
+    $("#correct-answers").text("Correct answers: " + score);
+    $("#incorrect-answers").text("Incorrect answers: " + losses);
 
     
 
